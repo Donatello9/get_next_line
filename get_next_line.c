@@ -6,7 +6,7 @@
 /*   By: siligh <siligh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 19:19:15 by siligh            #+#    #+#             */
-/*   Updated: 2024/06/16 19:51:44 by siligh           ###   ########.fr       */
+/*   Updated: 2024/06/16 22:36:44 by siligh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,17 @@
 
 char	*get_next_line(int fd)
 {
-    
+	static char	*stash;
+	int			i;
+	char		*buffer;
+
+	buffer = malloc(sizeof(char) * BUFFER_SIZE + 1);
+	if (!buffer)
+	{
+		return (NULL);
+	}
+	i = 0;
+	read(fd, buffer, BUFFER_SIZE);
 }
 
 int	main(void)
@@ -25,7 +35,7 @@ int	main(void)
 	int i;
 
 	i = 0;
-	fd = open("test.txt", O_RDONLY);
+	fd = open("test.txt", O_RDONLY | O_CREAT);
 	while (i <= 2)
 	{
 		get_next_line(fd);
