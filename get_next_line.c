@@ -6,12 +6,13 @@
 /*   By: siligh <siligh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 19:19:15 by siligh            #+#    #+#             */
-/*   Updated: 2024/06/16 22:40:42 by siligh           ###   ########.fr       */
+/*   Updated: 2024/06/18 16:44:30 by siligh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <fcntl.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 char	*get_next_line(int fd)
@@ -20,6 +21,8 @@ char	*get_next_line(int fd)
 	int			i;
 	char		*buffer;
 
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
 	buffer = malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (!buffer)
 	{
