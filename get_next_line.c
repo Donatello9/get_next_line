@@ -6,7 +6,7 @@
 /*   By: siligh <siligh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 19:19:15 by siligh            #+#    #+#             */
-/*   Updated: 2024/06/18 16:44:30 by siligh           ###   ########.fr       */
+/*   Updated: 2024/06/19 16:30:17 by siligh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,34 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+char	*fill_line_buffer(int fd, char *left_c, char *buffer)
+{
+	static char	*line;
+	int i;
+
+	i = 0;
+	read(fd, buffer, BUFFER_SIZE);
+	while (i <= BUFFER_SIZE || (buffer != '\n' || buffer != '\0'))
+	{
+		i++;
+	}
+}
+
+char	*set_line(char *line_buffer)
+{
+	int	i;
+
+	i = 0;
+	while (line_buffer[i] != '\n' || line_buffer[i] != '\0')
+	{
+		i++;
+	}
+	line_buffer[i] = '\0';
+	return (line_buffer);
+}
+
 char	*get_next_line(int fd)
 {
-	static char	*stash;
 	int			i;
 	char		*buffer;
 
@@ -29,7 +54,6 @@ char	*get_next_line(int fd)
 		return (NULL);
 	}
 	i = 0;
-	read(fd, buffer, BUFFER_SIZE);
 }
 
 int	main(void)
