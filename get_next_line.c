@@ -6,7 +6,7 @@
 /*   By: siligh <siligh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 19:19:15 by siligh            #+#    #+#             */
-/*   Updated: 2024/06/19 16:30:17 by siligh           ###   ########.fr       */
+/*   Updated: 2024/06/30 16:03:24 by siligh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,32 @@
 
 char	*fill_line_buffer(int fd, char *left_c, char *buffer)
 {
-	static char	*line;
-	int i;
+	char	*tmp;
+	int		lecture;
 
-	i = 0;
-	read(fd, buffer, BUFFER_SIZE);
-	while (i <= BUFFER_SIZE || (buffer != '\n' || buffer != '\0'))
+	lecture = 1;
+	// read(fd, buffer, BUFFER_SIZE);
+	while (lecture > 0)
 	{
-		i++;
+		lecture = read(fd, buffer, BUFFER_SIZE);
+		if (lecture == -1)
+		{
+			free(left_c);
+			return (NULL);
+		}
+		else if (lecture == 0)
+			break ;
+		buffer[lecture] = 0;
+		if (!left_c)
+			left_c = ft_strdup("");
+		tmp = left_c;
+		left_c = ft_strjoin(tmp, buffer);
+		free(tmp);
+		tmp = NULL;
+		if (ft_strchr(buffer, '\n'))
+			break ;
 	}
+	return (left_c);
 }
 
 char	*set_line(char *line_buffer)
@@ -43,8 +60,8 @@ char	*set_line(char *line_buffer)
 
 char	*get_next_line(int fd)
 {
-	int			i;
-	char		*buffer;
+	int		i;
+	char	*buffer;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
