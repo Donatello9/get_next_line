@@ -5,29 +5,26 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: siligh <siligh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/16 19:19:48 by siligh            #+#    #+#             */
-/*   Updated: 2024/06/30 16:10:19 by siligh           ###   ########.fr       */
+/*   Created: 2024/07/23 16:43:48 by siligh            #+#    #+#             */
+/*   Updated: 2024/07/23 16:45:06 by siligh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# include <fcntl.h>
 # include <stdlib.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
+#  define BUFFER_SIZE 5
 # endif
 
-char				*get_next_line(int fd);
-char				*ft_strjoin(const char *s1, const char *s2);
-char				*ft_strdup(const char *s1);
-
-typedef struct s_list
-{
-	void			*content;
-	struct s_list	*next;
-}					t_list;
+char	*get_next_line(int fd);
+char	*ft_read_str(int fd, char *left_str);
+char	*ft_strchr(char *s, int c);
+char	*ft_strjoin(char *s1, char *buff);
+size_t	ft_strlen(char *str);
+char	*ft_get_line(char *left_str);
+char	*ft_new_str(char *left_str);
 
 #endif
